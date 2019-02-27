@@ -1,0 +1,175 @@
+{
+	"variables": [],
+	"info": {
+		"name": "AKCE",
+		"_postman_id": "530d4200-6bf7-f027-bd70-c2cc75053876",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adding New Client - Simple",
+			"request": {
+				"url": "http://127.0.0.1:11135/clients",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Owen\",\n\t\"surname\": \"Muscat\"\n}"
+				},
+				"description": "Adds a new client"
+			},
+			"response": []
+		},
+		{
+			"name": "* Adding New Client - With Relations",
+			"request": {
+				"url": "http://127.0.0.1:11135/clients",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"AKCE\",\n\t\"surname\": \"Group\",\n\t\"addresses\": [\n\t\t{\n\t\t\t\"type\": \"PRIMARY\",\n\t\t\t\"address_1\": \"The Hedge Business Centre\",\n\t\t\t\"address_2\": \"Level 2 Office 201\",\n\t\t\t\"city\": \"St. Julian's\",\n\t\t\t\"country\": \"Malta\"\n\t\t},\n\t\t{\n\t\t\t\"type\": \"Secondary\",\n\t\t\t\"address_1\": \"9th floor, The Shard\",\n\t\t\t\"address_2\": \"32 London Bridge St.\",\n\t\t\t\"city\": \"London\",\n\t\t\t\"country\": \"United Kingdom\"\n\t\t}\n\t],\n\t\"accounts\": [\n\t\t{\n\t\t\t\"type\": \"CURRENT\",\n\t\t\t\"balance\": 10000000.00\n\t\t}\n\t]\n}"
+				},
+				"description": "Via the generic base reporitory created if the relationships are defined in the model, passing the relationship in the data object as an array will allow you to create the a new item and link it to the parent class"
+			},
+			"response": []
+		},
+		{
+			"name": "* Retrieving Clients - With Pagination",
+			"request": {
+				"url": "http://127.0.0.1:11135/clients",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "* Retrieving Single Client - Detailed",
+			"request": {
+				"url": "http://127.0.0.1:11135/clients/1/detailed",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Updating Client - With Relations",
+			"request": {
+				"url": "http://127.0.0.1:11135/clients/1",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Owen\",\n\t\"surname\": \"Muscat\",\n\t\"addresses\": [\n\t\t{\n\t\t\t\"type\": \"PRIMARY\",\n\t\t\t\"address_1\": \"Porto Paradiso FLT 7\",\n\t\t\t\"address_2\": \"Triq ix-Xaghra tal-Bandieri\",\n\t\t\t\"city\": \"St. Paul's Bay\",\n\t\t\t\"country\": \"Malta\"\n\t\t}\n\t],\n\t\"accounts\": [\n\t\t{\n\t\t\t\"type\": \"CURRENT\",\n\t\t\t\"balance\": 100\n\t\t}\n\t]\n}"
+				},
+				"description": "Same concept as the create with relations, when the relations have an id the record is update, when the relation does not have an id a new record is added with the correct foreign key"
+			},
+			"response": []
+		},
+		{
+			"name": "* Creating Client Account",
+			"request": {
+				"url": "http://127.0.0.1:11135/client-accounts",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"client_id\": 1,\n\t\"type\": \"SAVINGS\",\n\t\"balance\": 1000\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Client Account",
+			"request": {
+				"url": "http://127.0.0.1:11135/client-accounts/3",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"balance\": -2000\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "* Create Transaction Between 2 Accounts",
+			"request": {
+				"url": "http://127.0.0.1:11135/transfer",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"debit_client_account_id\": 1,\n\t\"credit_client_account_id\": 3,\n\t\"amount\": 1000,\n\t\"message\": \"Payroll\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "* Retreiving Client Accounts",
+			"request": {
+				"url": "http://127.0.0.1:11135/client-accounts",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "* Retreiving Account Transactions",
+			"request": {
+				"url": "http://127.0.0.1:11135/client-accounts/1/transactions",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

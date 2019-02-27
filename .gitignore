@@ -1,0 +1,5 @@
+/src/Infrastructure/Lumen/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+/src/.env
